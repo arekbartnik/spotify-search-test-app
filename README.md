@@ -30,7 +30,7 @@ This is a test app for searching Spotify. It is built with Next.js 15 RC and use
 
 ## Preview
 
-You can preview the app [here](https://spotify-search-test.vercel.app/).
+You can preview the app at https://spotify-search-test.vercel.app.
 
-> **Warning**
-> Before log in the app, the author have to add your Spotify account to the list of authorized users in the Spotify Developer Dashboard.
+> [!IMPORTANT]
+> You won't be able to sign in unless the author adds your Spotify account to the list of authorized users in the Spotify Developer Dashboard.
