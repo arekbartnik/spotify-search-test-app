@@ -27,3 +27,10 @@ This is a test app for searching Spotify. It is built with Next.js 15 RC and use
 
 5. Run `pnpm install` to install the dependencies.
 6. Run `pnpm run dev` to start the development server.
+
+## Preview
+
+You can preview the app [here](https://spotify-search-test.vercel.app/).
+
+> **Warning**
+> Before log in the app, the author have to add your Spotify account to the list of authorized users in the Spotify Developer Dashboard.
