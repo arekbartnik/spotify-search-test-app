@@ -27,7 +27,9 @@ export async function searchSpotify(query: string, type: ItemTypes[]) {
 			items: await Promise.all(
 				data.tracks?.items.map(async (track) => ({
 					...track,
-					isSaved: accessToken ? await checkSavedTracks(track.id) : false,
+					isSaved: accessToken
+						? await checkSavedTracks(track.id)
+						: false,
 				})) ?? [],
 			),
 		},

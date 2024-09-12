@@ -11,7 +11,8 @@ export function SignIn() {
 		>
 			<Button variant="outline" type="submit">
 				<span>
-					Sign In <span className="sr-only md:not-sr-only">with Spotify</span>
+					Sign In{" "}
+					<span className="sr-only md:not-sr-only">with Spotify</span>
 				</span>
 			</Button>
 		</form>

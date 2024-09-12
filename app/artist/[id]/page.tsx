@@ -57,7 +57,10 @@ export default async function ArtistPage({
 			<h2 className="text-2xl font-semibold mb-4">Discography</h2>
 			<div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
 				{albums.items.map((album) => (
-					<div className="group cursor-pointer relative" key={album.id}>
+					<div
+						className="group cursor-pointer relative"
+						key={album.id}
+					>
 						<Image
 							src={album.images[0].url}
 							alt={album.name}
@@ -74,7 +77,8 @@ export default async function ArtistPage({
 							</Link>
 						</h3>
 						<p className="text-sm text-gray-500">
-							{album.release_date.split("-")[0]} • {album.album_type}
+							{album.release_date.split("-")[0]} •{" "}
+							{album.album_type}
 						</p>
 					</div>
 				))}

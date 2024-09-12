@@ -36,10 +36,17 @@ export function SearchResults({ results }: { results: SearchResults }) {
 								key={result.id}
 								id={result.id}
 								name={result.name}
-								artistName={result.artists?.[0]?.name || "Unknown Artist"}
+								artistName={
+									result.artists?.[0]?.name ||
+									"Unknown Artist"
+								}
 								albumId={result.album?.id || ""}
-								albumName={result.album?.name || "Unknown Album"}
-								albumCoverUrl={result.album?.images[0]?.url || ""}
+								albumName={
+									result.album?.name || "Unknown Album"
+								}
+								albumCoverUrl={
+									result.album?.images[0]?.url || ""
+								}
 								isSaved={result.isSaved}
 								duration={result.duration_ms || 0}
 							/>

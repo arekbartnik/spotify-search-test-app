@@ -34,7 +34,9 @@ export function Box({ id, name, type, imageUrl }: BoxProps) {
 						</Link>
 					</h3>
 				</div>
-				<p className="text-sm text-muted-foreground capitalize">{type}</p>
+				<p className="text-sm text-muted-foreground capitalize">
+					{type}
+				</p>
 			</div>
 		</div>
 	);

@@ -15,8 +15,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 		Spotify({
 			authorization: `https://accounts.spotify.com/authorize?${new URLSearchParams(
 				{
-					scope:
-						"user-read-email user-follow-modify user-follow-read user-library-read user-library-modify",
+					scope: "user-read-email user-follow-modify user-follow-read user-library-read user-library-modify",
 				},
 			).toString()}`,
 			checks: ["state"],

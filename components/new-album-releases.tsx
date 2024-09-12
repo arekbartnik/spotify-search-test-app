@@ -15,7 +15,10 @@ export async function NewAlbumReleases() {
 			<h2 className="text-2xl font-bold mt-8 mb-4">New Releases</h2>
 			<div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
 				{albums.map((album) => (
-					<div className="group cursor-pointer relative" key={album.id}>
+					<div
+						className="group cursor-pointer relative"
+						key={album.id}
+					>
 						<Image
 							src={album.images[0].url}
 							alt={album.name}
@@ -32,7 +35,8 @@ export async function NewAlbumReleases() {
 							</Link>
 						</h3>
 						<p className="text-sm text-muted-foreground">
-							{album.artists[0].name} • {album.release_date.split("-")[0]}
+							{album.artists[0].name} •{" "}
+							{album.release_date.split("-")[0]}
 						</p>
 					</div>
 				))}

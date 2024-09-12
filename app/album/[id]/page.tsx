@@ -35,7 +35,10 @@ export default async function AlbumPage({
 				<div className="flex-1 w-full">
 					<div className="flex justify-between items-center mb-2">
 						<h1 className="text-3xl font-bold">{album.name}</h1>
-						<SaveAlbumButton albumId={album.id} defaultIsSaved={isSaved} />
+						<SaveAlbumButton
+							albumId={album.id}
+							defaultIsSaved={isSaved}
+						/>
 					</div>
 					<p className="text-xl mb-4">
 						by{" "}
