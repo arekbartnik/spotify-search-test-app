@@ -37,6 +37,9 @@ export async function toggleSavedAlbum(albumId: string) {
 		await api.currentUser.albums.saveAlbums([albumId]);
 	}
 
+	// Revalidate the album data
+	revalidatePath(`/album/${albumId}`, "page");
+
 	return !isSaved;
 }
 
@@ -51,6 +54,9 @@ export async function toggleSaveTrack(trackId: string) {
 	} else {
 		await api.currentUser.tracks.saveTracks([trackId]);
 	}
+
+	// Revalidate the album data
+	revalidatePath("/", "page");
 
 	return !isSaved;
 }

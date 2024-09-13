@@ -31,16 +31,15 @@ export default function FollowArtistButton({
 			return toast.warning("You need to be signed in to follow artists");
 		}
 
-		setOptimisticIsFollowing(!optimisticIsFollowing);
-
 		startTransition(async () => {
 			try {
+				setOptimisticIsFollowing(!optimisticIsFollowing);
 				await toggleFollowArtist(artistId);
 			} catch (error) {
-				console.error("Error toggling follow status:", error);
+				console.error("Error toggling follow artist:", error);
 				// Revert optimistic update
 				setOptimisticIsFollowing(optimisticIsFollowing);
-				toast("Failed to update follow status", {
+				toast("Failed to follow artist", {
 					description: "Please try again later",
 				});
 			}
