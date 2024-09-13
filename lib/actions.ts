@@ -1,6 +1,7 @@
 "use server";
 
 import { privateSpotifyApi } from "@/lib/spotify-api";
+import { revalidatePath } from "next/cache";
 import { getAccessToken } from "./auth";
 
 export async function toggleFollowArtist(artistId: string) {
@@ -16,6 +17,9 @@ export async function toggleFollowArtist(artistId: string) {
 	} else {
 		await api.currentUser.followArtistsOrUsers([artistId], "artist");
 	}
+
+	// Revalidate the artist data
+	revalidatePath(`/artist/${artistId}`, "page");
 
 	return !isFollowing;
 }
