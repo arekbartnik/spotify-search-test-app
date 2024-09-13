@@ -1,5 +1,13 @@
 import { SaveAlbumButton } from "@/components/save-album-button";
+import { Button } from "@/components/ui/button";
+import {
+	Tooltip,
+	TooltipContent,
+	TooltipProvider,
+	TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { getAlbum } from "@/lib/queries";
+import { ExternalLinkIcon } from "@radix-ui/react-icons";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -33,12 +41,36 @@ export default async function AlbumPage({
 					className="rounded-lg shadow-lg w-full md:w-[400px]"
 				/>
 				<div className="flex-1 w-full">
-					<div className="flex justify-between items-center mb-2">
-						<h1 className="text-3xl font-bold">{album.name}</h1>
-						<SaveAlbumButton
-							albumId={album.id}
-							defaultIsSaved={isSaved}
-						/>
+					<div className="flex justify-between items-start mb-2 gap-2">
+						<h1 className="text-3xl font-bold text-balance">{album.name}</h1>
+						<div className="flex items-center gap-2">
+							<SaveAlbumButton albumId={album.id} defaultIsSaved={isSaved} />
+
+							<TooltipProvider>
+								<Tooltip>
+									<TooltipTrigger>
+										<Button
+											asChild
+											variant="outline"
+											size="icon"
+											className="size-10"
+										>
+											<Link
+												href={album.external_urls.spotify}
+												target="_blank"
+												rel="noopener noreferrer"
+												aria-label="Open in Spotify"
+											>
+												<ExternalLinkIcon className="size-4" />
+											</Link>
+										</Button>
+									</TooltipTrigger>
+									<TooltipContent>
+										<p>Open in Spotify</p>
+									</TooltipContent>
+								</Tooltip>
+							</TooltipProvider>
+						</div>
 					</div>
 					<p className="text-xl mb-4">
 						by{" "}

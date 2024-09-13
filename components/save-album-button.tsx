@@ -1,6 +1,12 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import {
+	Tooltip,
+	TooltipContent,
+	TooltipProvider,
+	TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { toggleSavedAlbum } from "@/lib/actions";
 import { HeartFilledIcon, HeartIcon } from "@radix-ui/react-icons";
 import { Loader2 } from "lucide-react";
@@ -47,18 +53,27 @@ export function SaveAlbumButton({
 	const Icon = optimisticIsSaved ? HeartFilledIcon : HeartIcon;
 
 	return (
-		<Button
-			variant={optimisticIsSaved ? "default" : "outline"}
-			size="icon"
-			className="shrink-0"
-			onClick={handleSave}
-			disabled={isPending}
-		>
-			{isPending ? (
-				<Loader2 className="size-4 animate-spin" />
-			) : (
-				<Icon className="size-4 fill-current" />
-			)}
-		</Button>
+		<TooltipProvider>
+			<Tooltip>
+				<TooltipTrigger asChild>
+					<Button
+						variant={optimisticIsSaved ? "default" : "outline"}
+						size="icon"
+						className="shrink-0"
+						onClick={handleSave}
+						disabled={isPending}
+					>
+						{isPending ? (
+							<Loader2 className="size-4 animate-spin" />
+						) : (
+							<Icon className="size-4 fill-current" />
+						)}
+					</Button>
+				</TooltipTrigger>
+				<TooltipContent>
+					<p>Save Album</p>
+				</TooltipContent>
+			</Tooltip>
+		</TooltipProvider>
 	);
 }
