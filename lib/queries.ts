@@ -52,6 +52,7 @@ export const getArtist = cache(async (id: string) => {
 	const isFollowing = followedArtists.artists.items.some(
 		(artist) => artist.id === id,
 	);
+
 	return { artist, albums, isFollowing };
 });
 
