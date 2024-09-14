@@ -42,9 +42,14 @@ export default async function AlbumPage({
 				/>
 				<div className="flex-1 w-full">
 					<div className="flex justify-between items-start mb-2 gap-2">
-						<h1 className="text-3xl font-bold text-balance">{album.name}</h1>
+						<h1 className="text-3xl font-bold text-balance">
+							{album.name}
+						</h1>
 						<div className="flex items-center gap-2">
-							<SaveAlbumButton albumId={album.id} defaultIsSaved={isSaved} />
+							<SaveAlbumButton
+								albumId={album.id}
+								defaultIsSaved={isSaved}
+							/>
 
 							<TooltipProvider>
 								<Tooltip>
@@ -56,7 +61,9 @@ export default async function AlbumPage({
 											className="size-10"
 										>
 											<Link
-												href={album.external_urls.spotify}
+												href={
+													album.external_urls.spotify
+												}
 												target="_blank"
 												rel="noopener noreferrer"
 												aria-label="Open in Spotify"

@@ -2,11 +2,11 @@
 
 import { privateSpotifyApi } from "@/lib/spotify-api";
 import { revalidatePath } from "next/cache";
-import { getAccessToken } from "./auth";
+import { auth } from "./auth";
 
 export async function toggleFollowArtist(artistId: string) {
-	const accessToken = await getAccessToken();
-	const api = privateSpotifyApi(accessToken);
+	const session = await auth();
+	const api = privateSpotifyApi(session);
 	const followedArtists = await api.currentUser.followedArtists("", 50);
 	const isFollowing = followedArtists.artists.items.some(
 		(artist) => artist.id === artistId,
@@ -25,8 +25,8 @@ export async function toggleFollowArtist(artistId: string) {
 }
 
 export async function toggleSavedAlbum(albumId: string) {
-	const accessToken = await getAccessToken();
-	const api = privateSpotifyApi(accessToken);
+	const session = await auth();
+	const api = privateSpotifyApi(session);
 
 	const savedAlbums = await api.currentUser.albums.hasSavedAlbums([albumId]);
 	const isSaved = savedAlbums[0];
@@ -44,8 +44,8 @@ export async function toggleSavedAlbum(albumId: string) {
 }
 
 export async function toggleSaveTrack(trackId: string) {
-	const accessToken = await getAccessToken();
-	const api = privateSpotifyApi(accessToken);
+	const session = await auth();
+	const api = privateSpotifyApi(session);
 
 	const [isSaved] = await api.currentUser.tracks.hasSavedTracks([trackId]);
 

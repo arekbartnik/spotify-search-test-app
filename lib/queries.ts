@@ -2,19 +2,20 @@ import "server-only";
 
 import type { ItemTypes } from "@spotify/web-api-ts-sdk";
 import { cache } from "react";
-import { getAccessToken } from "./auth";
+import { auth } from "./auth";
 import { privateSpotifyApi, publicSpotifyApi } from "./spotify-api";
 
 export async function checkSavedTracks(trackId: string) {
-	const accessToken = await getAccessToken();
-	const api = privateSpotifyApi(accessToken);
+	const session = await auth();
+	const api = privateSpotifyApi(session);
 
 	const savedTracks = await api.currentUser.tracks.hasSavedTracks([trackId]);
 	return savedTracks[0];
 }
 
 export async function searchSpotify(query: string, type: ItemTypes[]) {
-	const accessToken = await getAccessToken();
+	const session = await auth();
+	const isLoggedIn = !!session;
 
 	if (!query) return null;
 
@@ -27,7 +28,7 @@ export async function searchSpotify(query: string, type: ItemTypes[]) {
 			items: await Promise.all(
 				data.tracks?.items.map(async (track) => ({
 					...track,
-					isSaved: accessToken
+					isSaved: isLoggedIn
 						? await checkSavedTracks(track.id)
 						: false,
 				})) ?? [],
@@ -37,16 +38,16 @@ export async function searchSpotify(query: string, type: ItemTypes[]) {
 }
 
 export const getArtist = cache(async (id: string) => {
-	const accessToken = await getAccessToken();
+	const session = await auth();
 	const artist = await publicSpotifyApi.artists.get(id);
 	const albums = await publicSpotifyApi.artists.albums(id, "album,single");
 
-	if (!accessToken) {
+	if (!session) {
 		return { artist, albums, isFollowing: false };
 	}
 
 	const followedArtists = await privateSpotifyApi(
-		accessToken,
+		session,
 	).currentUser.followedArtists("", 50);
 	const isFollowing = followedArtists.artists.items.some(
 		(artist) => artist.id === id,
@@ -55,15 +56,15 @@ export const getArtist = cache(async (id: string) => {
 });
 
 export const getAlbum = cache(async (id: string) => {
-	const accessToken = await getAccessToken();
+	const session = await auth();
 	const album = await publicSpotifyApi.albums.get(id);
 
-	if (!accessToken) {
+	if (!session) {
 		return { album, isSaved: false };
 	}
 
 	const savedAlbums = await privateSpotifyApi(
-		accessToken,
+		session,
 	).currentUser.albums.hasSavedAlbums([id]);
 	const isSaved = savedAlbums[0];
 	return { album, isSaved };
