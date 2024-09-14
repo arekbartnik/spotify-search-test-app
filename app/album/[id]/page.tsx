@@ -97,7 +97,7 @@ export default async function AlbumPage({
 						{album.tracks.items.map((track) => (
 							<li
 								key={track.id}
-								className="flex items-center rounded-md bg-zinc-50 py-2"
+								className="flex items-center rounded-md bg-zinc-50 py-2 dark:bg-zinc-900"
 							>
 								<span className="mr-2 text-muted-foreground w-10 flex items-center justify-center">
 									{track.track_number}.

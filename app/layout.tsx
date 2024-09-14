@@ -22,17 +22,21 @@ export default function RootLayout({
 	children: React.ReactNode;
 }) {
 	return (
-		<Providers>
-			<html lang="en" className={`${montserrat.variable}`}>
-				<body className="font-montserrat antialiased flex flex-col min-h-screen">
+		<html
+			lang="en"
+			className={`${montserrat.variable}`}
+			suppressHydrationWarning
+		>
+			<body className="font-montserrat antialiased flex flex-col min-h-screen">
+				<Providers>
 					<div className="container max-w-screen-lg mx-auto p-4 pb-6 md:p-8 flex-grow">
 						<Header />
 						{children}
 					</div>
 					<Footer />
 					<Toaster position="top-center" duration={2000} />
-				</body>
-			</html>
-		</Providers>
+				</Providers>
+			</body>
+		</html>
 	);
 }

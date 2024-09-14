@@ -30,7 +30,7 @@ export function TrackBox({
 	};
 
 	return (
-		<div className="grid grid-cols-[1fr_40px_max-content] md:grid-cols-[2fr_1fr_80px_max-content] items-center justify-between gap-4 p-2 rounded-md hover:bg-zinc-100">
+		<div className="grid grid-cols-[1fr_40px_max-content] md:grid-cols-[2fr_1fr_80px_max-content] items-center justify-between gap-4 p-2 rounded-md hover:bg-zinc-100 dark:hover:bg-zinc-900">
 			<div className="flex gap-4 items-center min-w-0">
 				<Image
 					src={albumCoverUrl}
