@@ -2,20 +2,35 @@
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { usePathname, useRouter } from "next/navigation";
-import { type FormEvent, useState, useTransition } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useQueryState } from "nuqs";
+import { type FormEvent, useEffect, useRef, useTransition } from "react";
+
+const SEARCH_PARAM = "search";
 
 export function SearchInput() {
-	const [query, setQuery] = useState("");
-	const { replace } = useRouter();
 	const pathname = usePathname();
+	const { replace } = useRouter();
+	const [query, setQuery] = useQueryState(SEARCH_PARAM);
 	const [isPending, startTransition] = useTransition();
+	const searchParams = useSearchParams();
+	const isInitialMount = useRef(true);
+
+	useEffect(() => {
+		if (isInitialMount.current) {
+			const search = searchParams.get(SEARCH_PARAM);
+			if (search && search !== query) {
+				setQuery(search);
+			}
+			isInitialMount.current = false;
+		}
+	}, [searchParams, setQuery, query]);
 
 	const handleSearch = (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 
 		startTransition(() => {
-			replace(`${pathname}?search=${query}`);
+			replace(`${pathname}?${SEARCH_PARAM}=${query}`);
 		});
 	};
 
@@ -29,8 +44,8 @@ export function SearchInput() {
 					required
 					type="text"
 					placeholder="Search for artists, albums, or tracks"
-					value={query}
-					onChange={(e) => setQuery(e.target.value)}
+					value={query || ""}
+					onChange={(e) => setQuery(e.target.value || null)}
 					className="h-11"
 					minLength={2}
 				/>
